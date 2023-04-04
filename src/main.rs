@@ -98,7 +98,11 @@ impl PeiceImage {
                     points: output
                 }
             },
-            _ => panic!("no peices that big!"),
+            _ => {
+                println!("size was {size:?}");
+
+                panic!("no peices that big!")
+            },
         }
     }
 }
