@@ -46,7 +46,15 @@ struct PeiceImage {
 impl PeiceImage {
     fn rotate_image_clockwise (&self) -> Self{
         //find size of peice
-        let size: usize = 5;//self.points.iter().map(|(a,b)| a.max(b)).into_iter().max().unwrap() + 1;
+        let mut size: usize = 1;
+        for points in &self.points {
+            for coord in points{
+                if coord > &size {
+                    size = *coord
+                }
+            }
+        }
+        //let size: usize = self.points.iter().map(|(a,b)| a.max(b)).into_iter().max().unwrap() + 1;
         //pick rotation matrix based on size and return rotated image
         match size {
             1 => panic!("no peices that smoll"),
