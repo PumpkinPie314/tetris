@@ -239,11 +239,11 @@ impl Peice {
         }
         
     }
-    fn points(&self) -> Vec<[usize;2]> {
+    fn get_points(&self) -> Vec<[usize;2]> {
         self.get_image().points.iter().map(|point| {
             let [from_left, from_top] = point;
             let new_from_left:usize = (*from_left as i32 + self.pos[0]).try_into().expect("point out of bounds, too high!");
-            let new_from_top:usize = (*from_top as i32 +self.pos[2]).try_into().expect("point out of bounds, too far left!");
+            let new_from_top:usize = (*from_top as i32 + self.pos[1]).try_into().expect("point out of bounds, too far left!");
             [new_from_left, new_from_top]
         }).collect()
     }
@@ -331,14 +331,9 @@ fn render_board(board: &Board) {
         }
     }
     //peice
-    let peice_shape = board.player_peice.get_image();
-    for [from_left, from_top] in peice_shape.points {
-        let line_index:usize =(from_top as i32 + board.player_peice.pos[1]).try_into().expect("point out of bounds, too high!");
-        let point_index:usize =(from_left as i32 + board.player_peice.pos[0]).try_into().expect("point out of bounds, too far left!");
-        if !(line_index < board.stack.lines.len()) {panic!("point out of bounds, too low!");};
-        if !(point_index < board.stack.lines[0].tiles.len()) {panic!("point out of bounds, too far right!");};
-        screen[line_index][point_index] = true;
-    }
+    for point in board.player_peice.get_points() {
+        screen[point[1]][point[0]] = true;
+    };
 
     for screenline in screen {
         for pixel in screenline {
