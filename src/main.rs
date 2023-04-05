@@ -54,7 +54,7 @@ impl PeiceImage {
                 }
             }
         }
-        //let size: usize = self.points.iter().map(|(a,b)| a.max(b)).into_iter().max().unwrap() + 1;
+        size += 1;
         //pick rotation matrix based on size and return rotated image
         match size {
             1 => panic!("no peices that smoll"),
