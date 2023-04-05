@@ -242,8 +242,8 @@ impl Peice {
     fn get_points(&self) -> Vec<[usize;2]> {
         self.get_image().points.iter().map(|point| {
             let [from_left, from_top] = point;
-            let new_from_left:usize = (*from_left as i32 + self.pos[0]).try_into().expect("point out of bounds, too high!");
-            let new_from_top:usize = (*from_top as i32 + self.pos[1]).try_into().expect("point out of bounds, too far left!");
+            let new_from_left:usize = (*from_left as i32 + self.pos[0]) as usize;
+            let new_from_top:usize = (*from_top as i32 + self.pos[1]) as usize;
             [new_from_left, new_from_top]
         }).collect()
     }
