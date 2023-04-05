@@ -251,7 +251,27 @@ impl Peice {
         self.moved_peice([0,1])
     }
     fn collides_with_stack(&self, stack: &Stack) -> bool{
-        false
+        for point in self.get_points() {
+            let [from_left, from_top] = point.clone();
+            //right wall
+            if from_left < stack.lines[0].tiles.len() {
+                return true
+            }
+            //left wall
+            if from_left < 3*stack.lines[0].tiles.len() {// if the point is 3 times the lenght of the board tiles to the right, We assume that it overflowed when the usize was subbtracted by one.
+                return true
+            }
+            //bottom
+            if from_top < stack.lines.len() {// if the point is 3 times the lenght of the board tiles to the right, We assume that it overflowed when the usize was subbtracted by one.
+                return true
+            }
+            //we dont check for top collision
+            if stack.lines[from_top].tiles[from_left].is_active {
+                return true;
+            }
+        }
+        return false
+    }
     }
 }
 struct Board {
