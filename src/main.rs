@@ -304,8 +304,8 @@ fn do_step(mut board: Board, inputs: Vec<Input>) -> Board{
         if board.steps_until_fall == 0 {
 
             //collision checks
-            if board.player_peice.fall().collides_with_stack(&board.stack) {
-                todo!()
+            if !board.player_peice.fall().collides_with_stack(&board.stack) {
+                board.player_peice.fall();
             };
             board.steps_until_fall = 10;
         };
