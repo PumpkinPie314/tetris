@@ -301,6 +301,7 @@ fn do_step(mut board: Board, inputs: Vec<Input>) -> Board{
             Input::Wait                     => board.steps_until_fall = 0,
             _ => todo!()
         };
+        //println!("{:?}", board.player_peice.rotation);
         if board.steps_until_fall == 0 {
 
             //collision checks
@@ -316,6 +317,8 @@ fn do_step(mut board: Board, inputs: Vec<Input>) -> Board{
 fn main() {
     let mut board: Board = Board::new();
     loop {
+        println!("rotation: {:?}", &board.player_peice.rotation);
+        println!("image: {:?}", &board.player_peice.get_image());
         render_board(&board);
         board = do_step(board, get_input());
     };
