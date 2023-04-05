@@ -169,16 +169,6 @@ struct Peice {
     rotation: Rotation,
 }
 impl Peice {
-    fn moved_peice(&self, offset: [i32; 2]) -> Self{
-        let [move_right, move_left] = offset;
-        let mut new_pos = self.pos;
-        new_pos[0] += move_right;
-        new_pos[1] += move_left;
-        Peice {
-            pos : new_pos,
-            ..*self
-        }
-    }
     fn get_image(&self) -> PeiceImage {
         let image_template: Vec<&str> = match self.peice_type {
             PeiceType::O => vec![
@@ -235,7 +225,7 @@ impl Peice {
             Rotation::Up => output, 
             Rotation::Right => output.rotate_image_clockwise(),
             Rotation::Down =>output.rotate_image_clockwise().rotate_image_clockwise(),
-            Rotation::Left =>output.rotate_image_clockwise().rotate_image_clockwise().rotate_image_clockwise(),// lol
+            Rotation::Left =>output.rotate_image_clockwise().rotate_image_clockwise().rotate_image_clockwise(),//lol
         }
         
     }
@@ -272,6 +262,15 @@ impl Peice {
         }
         return false
     }
+    fn moved_peice(&self, offset: [i32; 2]) -> Self{
+        let [move_left, move_down] = offset;
+        let mut new_pos = self.pos;
+        new_pos[0] += move_left;
+        new_pos[1] += move_down;
+        Peice {
+            pos: new_pos,
+            ..*self
+        }
     }
 }
 struct Board {
